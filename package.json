@@ -3,5 +3,11 @@
   "version": "1.0.0",
   "repository": "https://github.com/kirim-Lee/supergulp.git",
   "author": "Kirim Lee <uthi1004@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^4.0.2"
+  },
+  "scripts": {
+    "dev": "gulp dev"
+  }
 }
