@@ -4,7 +4,9 @@
   "repository": "https://github.com/kirim-Lee/supergulp.git",
   "author": "Kirim Lee <uthi1004@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-pug": "^4.0.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
