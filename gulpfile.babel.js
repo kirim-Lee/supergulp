@@ -1,4 +1,5 @@
 import gulp from "gulp";
+import ws from "gulp-webserver";
 import pug from "gulp-pug";
 import del from "del";
 
@@ -17,8 +18,13 @@ const buildHTML = () =>
 
 const clean = () => del(["build"]);
 
+const webserver = () =>
+  gulp.src("build").pipe(ws({ livereload: true, open: true }));
+
 const prepare = gulp.series(clean);
 
 const assets = gulp.series(buildHTML);
 
-export const dev = gulp.series(prepare, assets);
+const postDev = gulp.series(webserver);
+
+export const dev = gulp.series(prepare, assets, postDev);
