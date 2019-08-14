@@ -8,6 +8,7 @@ import autoPrefixer from "gulp-autoprefixer";
 import miniCSS from "gulp-csso";
 import bro from "gulp-bro";
 import babelify from "babelify";
+import ghPages from "gulp-gh-pages";
 
 sass.compiler = require("node-sass");
 
@@ -39,7 +40,7 @@ const buildHTML = () =>
     .pipe(pug())
     .pipe(gulp.dest(routes.pug.dest));
 
-const clean = () => del(["build"]);
+const clean = () => del(["build", ".publish"]);
 
 const webserver = () =>
   gulp.src("build").pipe(ws({ livereload: true, open: true }));
@@ -77,10 +78,15 @@ const styles = () =>
     .pipe(miniCSS())
     .pipe(gulp.dest(routes.scss.dest));
 
+const gh = () => gulp.src("build/**/*").pipe(ghPages());
+
 const prepare = gulp.series(clean, img);
 
 const assets = gulp.series(buildHTML, styles, js);
 
-const postDev = gulp.parallel(webserver, watch);
+const live = gulp.parallel(webserver, watch);
 
-export const dev = gulp.series(prepare, assets, postDev);
+const build = gulp.series(prepare, assets);
+
+export const dev = gulp.series(build, live);
+export const deploy = gulp.series(build, gh, clean);
