@@ -4,6 +4,8 @@ import pug from "gulp-pug";
 import del from "del";
 import image from "gulp-image";
 import sass from "gulp-sass";
+import autoPrefixer from "gulp-autoprefixer";
+import miniCSS from "gulp-csso";
 
 sass.compiler = require("node-sass");
 
@@ -50,6 +52,8 @@ const styles = () =>
   gulp
     .src(routes.scss.src)
     .pipe(sass().on("error", sass.logError))
+    .pipe(autoPrefixer())
+    .pipe(miniCSS())
     .pipe(gulp.dest(routes.scss.dest));
 
 const prepare = gulp.series(clean, img);
